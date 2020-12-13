@@ -1,53 +1,54 @@
-const express=require("express");
-const app=express();
+const Router=require("express");
+const router=Router();
 const bcrypt=require("bcrypt");
 const round=10;
 
-
 const {user,login}=require("../sequelize");
-const { request } = require("express");
+const { request1 } = require("express");
 
-
-
-
-app.post("/signup",async (req,res)=>{
-
+router.post("/",async (request,res)=>{
     const name=request.body.name;
     const age=request.body.age;
-    const email=request.body.email;
     const password=request.body.password;
+    const email=request.body.email;
 
-    if (name==""||age==""||password==""||email=="" ){
-        res.sendStatus(400).json({message:"please enter name,age,email,password"});
+    if (name==" "||age==" "||password==" "||email==" "){
+        res.status(400).json({message:"please enter name,age,email,password"});
+        return
     }
-
     let User=await user.create({
-        name:name,
-        age:age,
-        email:email,
-    })
-    User=User.dataValue;
-
+        name:request.body.name,
+        age:request.body.age,
+        email:request.body.email,
+    });
+    User=User.dataValues;
+   
+    console.log(password);
     const pass= bcrypt.hash(password,10,(err,hash)=>{
         if (err){
-            console.log("error occured");
+            console.log("error is",err);
         }
         else{
+            console.log("hash",pass);
             return hash;
+            
         }
         
     });
+    console.log("pass",pass);
    
-    const login=await login.create({
+    let Login1=await login.create({
        
-        password:pass,
+        hashedPassword:pass,
         userId:User.id,
     });
+    console.log("User is",User);
+    res.status(200).json({data:Login1});
+    return
+    console.log("2");
+    res.end();
 
-
-
-    res.sendStatus(200).json(User);
 });
 
 
-module.export=app;
+module.exports=router;

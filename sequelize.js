@@ -12,19 +12,18 @@ const sequelize=new Sequelize("testdata","root","123456789",{
         idle: 10000,
     },
 });
-
 const user=userModel(sequelize,Sequelize);
 const login=loginModel(sequelize,Sequelize);
 
 user.hasOne(login,{foreignKey:"userId"});
 login.belongsTo(user,{foreignKey:"userId"});
 
-sequelize.sync()
+sequelize.sync({force:true})
 .then(()=>{
     console.log("database synced to server");
 });
 
-module.export={
+module.exports={
     user,
     login
 };

@@ -1,9 +1,15 @@
 const Sequelize=require("sequelize");
 
-module.export=(sequelize,Datatype)=>{
-    return sequelize.define("User",{
+module.exports=(sequelize,Datatype)=>{
+    return sequelize.define("Login",{
+        id:{
+            type: Datatype.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
         
         hashedPassword:Datatype.STRING,
         userId:Datatype.UUID,
+
     });
 };
