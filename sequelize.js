@@ -18,7 +18,7 @@ const login=loginModel(sequelize,Sequelize);
 user.hasOne(login,{foreignKey:"userId"});
 login.belongsTo(user,{foreignKey:"userId"});
 
-sequelize.sync({force:true})
+sequelize.sync({})
 .then(()=>{
     console.log("database synced to server");
 });
