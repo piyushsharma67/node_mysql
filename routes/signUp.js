@@ -24,9 +24,9 @@ router.post("/",async (req,res)=>{
                 [Op.eq]:email1,
             }
         },
-    }).then((res)=>{
+    }).then((result)=>{
         // res=res.dataValues;
-        if (!res){
+        if (result){
             res.status(400).json({
                 "message":"user already exists"
             });
@@ -43,6 +43,7 @@ router.post("/",async (req,res)=>{
     }).then((res)=>{
         if (res){
             console.log("user created");
+            return res;
         }
     }).catch((err)=>{
         console.log(err);
