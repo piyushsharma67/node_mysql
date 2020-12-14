@@ -8,7 +8,7 @@ module.exports=(sequelize,Datatype)=>{
             autoIncrement: true,
         },
         
-        hashedPassword:Datatype.STRING,
+        hashedPassword:Datatype.TEXT,
         userId:Datatype.UUID,
 
     });

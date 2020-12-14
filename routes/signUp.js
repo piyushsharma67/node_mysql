@@ -29,26 +29,24 @@ router.post("/",async (request,res)=>{
             console.log("error is",err);
         }
         else{
-            console.log("hash",pass);
-            return hash;
-            
+            login.hashedPassword=hash;
+            console.log("hashed",login.hashedPassword);
         }
-        
+ 
     });
-    console.log("pass",pass);
-   
+    // console.log("pass",pass);
     let Login1=await login.create({
        
-        hashedPassword:pass,
+        hashedPassword,
         userId:User.id,
     });
+    
     console.log("User is",User);
     res.status(200).json({data:Login1});
     return
     console.log("2");
     res.end();
-
+ 
 });
-
 
 module.exports=router;
