@@ -50,9 +50,9 @@ router.get("/",async (req,res)=>{
   
     bcrypt.compare(password,data.hashedPassword,(err,pass)=>{
         if (pass){
-            const token=jwt.sign({
-                    email:email,
-                    name:result.name
+            const token=jwt.sign({              
+                    id:result.id,
+                    admin:true
                 },
                 "secret",
                 {

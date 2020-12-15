@@ -1,6 +1,7 @@
 const Sequelize=require("sequelize");
 const userModel= require("./models/user");
 const loginModel=require("./models/loginCredentials");
+const studentModel=require("./models/student");
 
 const sequelize=new Sequelize("testdata","root","123456789",{
     host: "localhost",
@@ -14,17 +15,19 @@ const sequelize=new Sequelize("testdata","root","123456789",{
 });
 const user=userModel(sequelize,Sequelize);
 const login=loginModel(sequelize,Sequelize);
+const Student=studentModel(sequelize,Sequelize);
 
 user.hasOne(login,{foreignKey:"userId"});
 login.belongsTo(user,{foreignKey:"userId"});
 
-sequelize.sync({})
+sequelize.sync({alter:true})
 .then(()=>{
     console.log("database synced to server");
 });
 
 module.exports={
     user,
-    login
+    login,
+    Student,
 };
 
